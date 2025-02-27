@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamwa Zmnako's | AI & Web Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === Base Styles === */
+        :root {
+            --black-1: #0a0a0a;       /* Primary background */
+            --black-2: #1a1a1a;       /* Secondary elements */
+            --accent: #00ff88;        /* Neon green accent */
+            --accent-2: #0099ff;      /* Blue accent */
+            --text: #e0e0e0;          /* Primary text */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--black-1);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* === Navigation === */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* === Hero Section === */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            background: linear-gradient(45deg, var(--black-1) 60%, var(--black-2));
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        /* === Skills Section === */
+        .skills {
+            padding: 5rem 0;
+            background: var(--black-2);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: var(--black-1);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* === Projects Section === */
+        .projects {
+            padding: 5rem 0;
+        }
+
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--black-2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--accent), transparent);
+            transform: rotate(45deg);
+            transition: var(--transition);
+            opacity: 0.1;
+        }
+
+        .project-card:hover::before {
+            transform: rotate(45deg) translateY(-50%);
+        }
+
+        .project-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack span {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 153, 255, 0.1);
+            border-radius: 20px;
+            margin: 0.3rem;
+            font-size: 0.9rem;
+            color: var(--accent-2);
+        }
+
+        /* === CV Section === */
+        .cv-section {
+            padding: 5rem 0;
+            background: var(--black-2);
+            text-align: center;
+        }
+
+        .cv-button {
+            background: var(--accent);
+            color: var(--black-1);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+
+        .cv-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* === Contact Section === */
+        .contact {
+            padding: 5rem 0;
+        }
+
+        .email-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .email-link {
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+        }
+
+        .email-link:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        /* === Animations === */
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.6s ease;
+        }
+
+        .scroll-animation.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">&lt;ZAMWA ZMNAKO/&gt;</a>
+            <div class="nav-links">
+                <a href="#skills" class="scroll-animation">Skills</a>
+                <a href="#projects" class="scroll-animation">Projects</a>
+                <a href="#cv" class="scroll-animation">CV</a>
+                <a href="#contact" class="scroll-animation">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title scroll-animation">AI & Web Developer</h1>
+                <h2 class="hero-title scroll-animation">About me:</h2>
+                <p class="hero-description scroll-animation">
+                  I'm Computer Science student in Stage 2,
+                   with demonstrated expertise in graphic design and software development.
+                    Experienced competitor with active participation in multiple programming competitions.
+                     Combines technical coding skills with creative design capabilities,
+                      offering a well-rounded profile for technology roles that require both analytical and visual,
+                       and also I’m capable to learn new skills.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="scroll-animation">Technical Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card scroll-animation">
+                    <i class="fab fa-python skill-icon"></i>
+                    <h3>Python</h3>
+                    <p>AI/ML, Computer Vision</p>
+                </div>
+                <div class="skill-card scroll-animation">
+                    <i class="fas fa-code skill-icon"></i>
+                    <h3>C++</h3>
+                    <p>System Programming</p>
+                </div>
+                <div class="skill-card scroll-animation">
+                    <i class="fab fa-html5 skill-icon"></i>
+                    <h3>HTML5</h3>
+                    <p>Web Structures</p>
+                </div>
+                <div class="skill-card scroll-animation">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                    <h3>CSS3</h3>
+                    <p>Styling & Animation</p>
+                </div>
+                <div class="skill-card scroll-animation">
+                    <i class="fas fa-calculator skill-icon"></i>
+                    <h3>MATLAB</h3>
+                    <p>Algorithm Development</p>
+                </div>
+                <div class="skill-card scroll-animation">
+                    <i class="fas fa-palette skill-icon"></i>
+                    <h3>Photoshop</h3>
+                    <p>UI/UX Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="scroll-animation">Featured Systems</h2>
+            <div class="project-grid">
+                <div class="project-card scroll-animation">
+                    <i class="fas fa-sign-language project-icon"></i>
+                    <h3>Sign Language Recognition</h3>
+                    <p>Real-time ASL translation system</p>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>OpenCV</span>
+                        <span>TensorFlow</span>
+                    </div>
+                </div>
+                <div class="project-card scroll-animation">
+                    <i class="fas fa-user-check project-icon"></i>
+                    <h3>Face Recognition System</h3>
+                    <p>Smart attendance tracking</p>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>html,css,js</span>
+                        <span>costumTkinter</span>
+                        <span>Flask</span>
+                    </div>
+                </div>
+                <div class="project-card scroll-animation">
+                    <i class="fas fa-coffee project-icon"></i>
+                    <h3>Cafe Management</h3>
+                    <p>Full-stack POS system</p>
+                    <div class="tech-stack">
+                        <span>Qt</span>
+                        <span>C++</span>
+                        <span>Mysql</span>
+                    </div>
+                </div>
+                <div class="project-card scroll-animation">
+                    <i class="fas fa-car project-icon"></i>
+                    <h3>Smart Parking System</h3>
+                    <p>Computer vision solution</p>
+                    <div class="tech-stack">
+                        <span>OpenCV</span>
+                        <span>Flask</span>
+                        <span>MediaPipe</span>
+                        <span>Python</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV Section -->
+    <section id="cv" class="cv-section">
+        <div class="container">
+            <h2 class="scroll-animation">                Opne CV
+                </h2>
+            <p class="scroll-animation" style="margin-bottom: 2rem;">
+                +2 years of expierence in coding& design
+            </p>
+            <a href="Zamwa(CV)resume.pdf" class="cv-button scroll-animation">
+                <i class="fas fa-download"></i>
+                Open CV
+            </a>
+            
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+          <h2 class="scroll-animation">Get in Touch</h2>
+          <div class="contact-methods">
+              <!-- Email -->
+              <div class="contact-item scroll-animation">
+                  <i class="fas fa-envelope contact-icon"></i>
+                  <h3>Email</h3>
+                  <a href="mailto:zzma90014@gmail.com" class="contact-link">
+                      zzma90014@gmail.com
+                      <span class="copy-text">(Click to copy)</span>
+                  </a>
+              </div>
+
+              <!-- LinkedIn -->
+              <div class="contact-item scroll-animation">
+                  <i class="fab fa-linkedin contact-icon"></i>
+                  <h3 >LinkedIn</h3>
+                  <a href="https://www.linkedin.com/in/zamwa-zmnako-b146a3336/" target="_blank" class="contact-link">
+                      zamwa-zmnako
+                      <span class="copy-text">(New tab)</span>
+                  </a>
+              </div>
+
+              
+                  </a>
+              </div>
+          </div>
+      </div>
+  </section>
+
+
+  <script>
+    // Scroll Animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-animation').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Copy Functionality
+    document.querySelectorAll('.contact-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if(link.href.startsWith('mailto:') || link.href.startsWith('tel:')) {
+                e.preventDefault();
+                const text = link.href.replace(/^mailto:|tel:/, '');
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalHTML = link.innerHTML;
+                    link.innerHTML = `<i class="fas fa-check"></i> Copied!`;
+                    setTimeout(() => {
+                        link.innerHTML = originalHTML;
+                    }, 2000);
+                });
+            }
+        });
+    });
+
+    // Particles Effect
+    function createParticles() {
+        const container = document.createElement('div');
+        container.className = 'particles';
+        
+        for(let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.cssText = `
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                width: ${Math.random() * 3 + 1}px;
+                height: ${Math.random() * 3 + 1}px;
+                animation-delay: ${Math.random() * 15}s;
+            `;
+            container.appendChild(particle);
+        }
+        document.body.appendChild(container);
+    }
+    createParticles();
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</body>
+</html>
