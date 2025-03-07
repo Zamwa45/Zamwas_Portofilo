@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamwa Portfolio</title>
+    <!-- Added Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 30px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #4169E1;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #4169E1;
+        }
+
+        .about {
+            padding-top: 100px;
+            flex-direction: row;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 3px solid #4169E1;
+            object-fit: cover;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .profile-img:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(65, 105, 225, 0.3);
+        }
+
+        .about-text {
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .project-card {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 3px solid #4169E1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card h3 {
+            color: #4169E1;
+            margin-bottom: 10px;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .tech-badge {
+            background: rgba(65, 105, 225, 0.2);
+            color: #4169E1;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .code-sample {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .code-sample pre {
+            margin: 0;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .project-btn {
+            padding: 8px 15px;
+            background: rgba(65, 105, 225, 0.2);
+            color: #4169E1;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .project-btn:hover {
+            background: #4169E1;
+            color: #fff;
+        }
+
+        .progress-card {
+            background: #111;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 3px solid #4169E1;
+            position: relative;
+        }
+
+        .progress-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(65, 105, 225, 0.2);
+            color: #4169E1;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4169E1;
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        .design-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .design-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.3s;
+            display: block;
+        }
+
+        .design-item:hover .design-img {
+            transform: scale(1.05);
+        }
+
+        .design-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .design-item:hover .design-overlay {
+            transform: translateY(0);
+        }
+
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            padding: 12px 25px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-btn:hover {
+            background: #4169E1;
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            background: #111;
+            margin-top: 50px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #4169E1;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* CV Button Styles */
+        .cv-btn {
+            padding: 12px 25px;
+            background: #4169E1;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(65, 105, 225, 0.3);
+        }
+
+        .cv-btn:hover {
+            background: transparent;
+            color: #4169E1;
+            border-color: #4169E1;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(65, 105, 225, 0.4);
+        }
+
+        .cv-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <nav>
+        <div class="logo">Zamwa</div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#in-progress" class="nav-link">In Progress</a>
+            <a href="#design" class="nav-link">Design</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section id="about" class="about">
+        <img src="Screenshot 2025-02-26 210609.png" alt="Zamwa" class="profile-img">
+        <div class="about-text">
+            <h1>About Me</h1>
+            <p>I'm Zamwa, a Computer Science student in Stage 2 with demonstrated expertise in graphic design and software development.</p>
+            <p>As an experienced competitor with active participation in multiple programming competitions, I combine technical coding skills with creative design capabilities.</p>
+            <p>This offers a well-rounded profile for technology roles that require both analytical and visual thinking.</p>
+            <p>I'm always eager to learn new skills and take on challenging projects that push my boundaries.</p>
+            
+            <!-- Added CV Button -->
+            <a href="Zamwa(CV)resume.pdf" class="cv-btn" download>
+                <i class="fas fa-file-alt"></i> Download CV
+            </a>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>My Projects</h2>
+        <div class="container">
+            <div class="card-container">
+                <!-- Visual Calculator -->
+                <div class="project-card">
+                    <h3>Visual Calculator</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Tkinter</span>
+                        <span class="tech-badge">GUI</span>
+                    </div>
+                    <p>An interactive calculator with a clean user interface and visual feedback.</p>
+                    <div class="code-sample">
+                        <pre><code># Calculator code sample
+import tkinter as tk
+from tkinter import *
+import cv2
+import numpy as np
+from PIL import ImageTk, Image
+
+def del_sc1():
+    sc1.destroy()
+
+# error message for name and no
+def err_screen():
+    global sc1
+    sc1 = tk.Tk()
+    sc1.geometry("400x110")
+    sc1.title("Warning!!")
+    sc1.configure(background="black")
+    sc1.resizable(0, 0)</code></pre>
+                    </div>
+                </div>
+
+                <!-- Attendance System -->
+                <div class="project-card">
+                    <h3>Face Recognition Attendance System</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">OpenCV</span>
+                        <span class="tech-badge">MySQL</span>
+                    </div>
+                    <p>Real-time face recognition with Excel integration for attendance tracking.</p>
+                    <div class="code-sample">
+                        <pre><code># Face detection sample
+import face_rec
+import MySQLdb
+from tkinter import *
+from tkinter import messagebox, filedialog
+
+def checkLogin():
+    u = nameE.get()
+    p = pwordE.get()
+
+    db = MySQLdb.connect('localhost', 'root', '1234', 'Attendence')
+    cur = db.cursor()
+
+    cur.execute("SELECT * FROM Login where username='" + u + "'")</code></pre>
+                    </div>
+                </div>
+
+                <!-- C++ Systems -->
+                <div class="project-card">
+                    <h3>Management Systems</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">C++</span>
+                        <span class="tech-badge">MySQL</span>
+                        <span class="tech-badge">Database</span>
+                    </div>
+                    <p>Cafe, Supermarket, and Company management systems with inventory tracking.</p>
+                    <div class="code-sample">
+                        <pre><code>// C++ Management System Sample
+#include <iostream>
+#include <string>
+#include <vector>
+
+class InventoryItem {
+private:
+    std::string name;
+    int quantity;
+    double price;
+    
+public:
+    InventoryItem(std::string n, int q, double p) : 
+        name(n), quantity(q), price(p) {}
+        
+    void display() {
+        std::cout << name << " - Qty: " << quantity;
+        std::cout << " - Price: $" << price << std::endl;
+    }
+};</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Cryptography Project -->
+                <div class="project-card">
+                    <h3>Simple Cryptography Project</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Tkinter</span>
+                        <span class="tech-badge">GUI</span>
+                    </div>
+                    <p>A simple cryptography project that converts normal text to encoded messages</p>
+                    <div class="code-sample">
+                        <pre><code># Cryptography code sample
+import tkinter as tk
+from tkinter import messagebox
+
+def encrypt(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            ascii_val = ord(char)
+            shifted = (ascii_val - 65 + shift) % 26 + 65 if char.isupper() else (ascii_val - 97 + shift) % 26 + 97
+            result += chr(shifted)
+        else:
+            result += char
+    return result</code></pre>
+                    </div>
+                </div>
+                
+                <!-- YOLO Drowsiness Detection -->
+                <div class="project-card">
+                    <h3>YOLO Drowsiness Detection</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">OpenCV</span>
+                        <span class="tech-badge">YOLO</span>
+                        <span class="tech-badge">Computer Vision</span>
+                    </div>
+                    <p>A professional drowsiness detection system using YOLO for driver safety</p>
+                    <div class="code-sample">
+                        <pre><code># Drowsiness detection code sample
+import cv2
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+
+def detect_eyes(frame, face_model, eye_model):
+    # Convert to grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    
+    # Detect faces
+    faces = face_model.detectMultiScale(
+        gray,
+        scaleFactor=1.1,
+        minNeighbors=5,
+        minSize=(30, 30)
+    )</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="in-progress">
+        <h2>Projects In Progress</h2>
+        <div class="container">
+            <div class="card-container">
+                <!-- Project 1 -->
+                <div class="progress-card">
+                    <span class="progress-badge">5% Complete</span>
+                    <h3>AI-Powered Learning Platform</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">TensorFlow</span>
+                        <span class="tech-badge">Flask</span>
+                    </div>
+                    <p>An intelligent learning platform that adapts to student needs and provides personalized content recommendations.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <div class="project-links">
+                        <span>Expected completion: April 2025</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 (Added missing project) -->
+                <div class="progress-card">
+                    <span class="progress-badge">0% Complete</span>
+                    <h3>Mobile Fitness App</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">React Native</span>
+                        <span class="tech-badge">Firebase</span>
+                        <span class="tech-badge">JavaScript</span>
+                    </div>
+                    <p>An fitness Mobile app that will has its own AI for helping get the calories and proteins,
+                         and also include all the workouts</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%"></div>
+                    </div>
+                    <div class="project-links">
+                        <span>Expected completion: June 2025</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="progress-card">
+                    <span class="progress-badge">10% Complete</span>
+                    <h3>Game Development</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">Unity</span>
+                        <span class="tech-badge">C#</span>
+                        <span class="tech-badge">3D Modeling</span>
+                    </div>
+                    <p>An educational game that teaches programming concepts through interactive puzzles and challenges.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%"></div>
+                    </div>
+                    <div class="project-links">
+                        <span>Expected completion: September 2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="design">
+        <h2>Graphic Design</h2>
+        <div class="container">
+            <div class="design-grid">
+                <div class="design-item">
+                    <img src="photo desin2.jpg" class="design-img" alt="Design 1">
+                    <div class="design-overlay">
+                        <h3>Social Media</h3>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="design-item">
+                    <img src="photo design.jpg" class="design-img" alt="Design 2">
+                    <div class="design-overlay">
+                        <h3>Social Media Design</h3>
+                        <p></p>
+                    </div>
+                </div>
+                <!-- Removed the 3D design item -->
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-section">
+            <p>Interested in working together? Feel free to reach out through any of these channels:</p>
+            <div class="contact-buttons">
+                <a href="zzma90014@gmail.com" class="contact-btn">
+                    <i class="far fa-envelope"></i> Email
+                </a>
+                <a href="https://www.linkedin.com/in/zamwa-zmnako-b146a3336/" class="contact-btn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+                <a href="https://github.com/Zamwa45" class="contact-btn">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Zamwa. All Rights Reserved.</p>
+    </footer>
+    
+    <a href="#" class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles background
+        document.addEventListener('DOMContentLoaded', function() {
+            // Particles.js configuration - optimized for performance
+            const config = {
+                particles: {
+                    number: {
+                        value: 50, // Reduced number for better performance
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: "#4169E1"
+                    },
+                    shape: {
+                        type: "circle"
+                    },
+                    opacity: {
+                        value: 0.5,
+                        random: true
+                    },
+                    size: {
+                        value: 3,
+                        random: true
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#4169E1",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1, // Slower speed for better performance
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out"
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "repulse"
+                        },
+                        onclick: {
+                            enable: false
+                        }
+                    },
+                    modes: {
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4
+                        }
+                    }
+                },
+                retina_detect: false // Disable for better performance
+            };
+
+            if (window.particlesJS) {
+                particlesJS('particles-js', config);
+            }
+            
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
